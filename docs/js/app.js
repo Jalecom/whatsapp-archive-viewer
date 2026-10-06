@@ -875,9 +875,19 @@ $("helpOverlay").addEventListener("click", e => {
   if (e.target === $("helpOverlay")) $("helpOverlay").classList.remove("on");
 });
 
+/* ---- "PWA offline" help panel ---- */
+if ($("pwaHelpLink")) {
+  $("pwaHelpLink").onclick = () => $("pwaHelpOverlay").classList.add("on");
+  $("pwaHelpClose").onclick = () => $("pwaHelpOverlay").classList.remove("on");
+  $("pwaHelpOverlay").addEventListener("click", e => {
+    if (e.target === $("pwaHelpOverlay")) $("pwaHelpOverlay").classList.remove("on");
+  });
+}
+
 document.addEventListener("keydown", e => {
   if (e.key === "Escape"){
     if ($("helpOverlay").classList.contains("on")) $("helpOverlay").classList.remove("on");
+    else if ($("pwaHelpOverlay") && $("pwaHelpOverlay").classList.contains("on")) $("pwaHelpOverlay").classList.remove("on");
     else if ($("lightbox").classList.contains("on")) closeLightbox();
     else if ($("calPanel").classList.contains("on")) closeCal();
     else if ($("searchbar").classList.contains("on")) closeSearch();
