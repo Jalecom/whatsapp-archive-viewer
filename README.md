@@ -1,4 +1,4 @@
-# Archive Viewer for WhatsApp Exports
+# Archive Viewer for WhatsApp iPhone Exports
 
 Read your WhatsApp export `.zip` files in a familiar chat-style web UI —
 **read-only, zero extraction, zero upload**.
