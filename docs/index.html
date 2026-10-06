@@ -70,8 +70,9 @@
         copies the whole <b>.zip</b> before this page can read it, and stays on the file
         picker while it does. Nothing is being uploaded — it is worth the wait.</p>
       <button id="helpLink">How do I export a chat from WhatsApp?</button>
+      <button id="pwaHelpLink">How to save it as PWA and work offline too</button>
       <p id="emptyLegal">Unofficial open-source tool — not affiliated with WhatsApp or Meta.
-        <a href="https://github.com/feynma1h/whatsapp-archive-viewer" target="_blank"
+        <a href="https://github.com/Jalecom/whatsapp-archive-viewer" target="_blank"
            rel="noopener">Source code on GitHub</a></p>
     </div>
     <input type="file" id="fileInput" accept=".zip,application/zip" multiple>
@@ -164,6 +165,20 @@
     <p class="helpTip">Anything shown as an <i>"omitted"</i> placeholder was left
       out by WhatsApp at export time and is not in the zip. Android's export
       format isn't supported yet.</p>
+  </div>
+</div>
+<div id="pwaHelpOverlay" style="display: none;">
+  <div id="pwaHelpCard" class="helpCard">
+    <div class="helpHead">
+      <h3>How to save as PWA (Work Offline)</h3>
+      <button id="pwaHelpClose" title="Close">✕</button>
+    </div>
+    <ol>
+      <li><b>On Google Chrome / Edge (Desktop):</b> Click the <b>Install icon</b> (computer with an arrow) on the right side of the address bar, or open the 3-dot menu and select <b>"Install app..."</b>.</li>
+      <li><b>On Safari (iPhone/iPad):</b> Tap the <b>Share button</b> (box with an up arrow) at the bottom, scroll down, and select <b>"Add to Home Screen"</b>.</li>
+      <li><b>On Chrome (Android):</b> Tap the 3-dot menu in the top right corner and select <b>"Install app"</b> or <b>"Add to Home screen"</b>.</li>
+    </ol>
+    <p class="helpTip"><b>Why use the PWA?</b> Once installed, this viewer works completely offline. You can open your exported WhatsApp zip archives anywhere, even without an internet connection, keeping your data local and secure.</p>
   </div>
 </div>
 <div id="dropOverlay"><span>Drop WhatsApp export .zip files to open them</span></div>
