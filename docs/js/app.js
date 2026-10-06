@@ -355,16 +355,95 @@ function msgHTML(m, prev){
   } else if (m.k === 1){
     body = mediaHTML(m, meta);
     if (body === null) return stickerHTML(m, cont, mine, showName, color, sender);
+  }
+
+  // -- OpenStreetMap --
+  else if (m.k === 5) {
+  const lat = Number(m.lat);
+  const lng = Number(m.lng);
+
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+    body = `<div class="btext">${esc(m.t)}${meta}</div>`;
   } else {
+    const west  = lng - 0.005;
+    const south = lat - 0.0035;
+    const east  = lng + 0.005;
+    const north = lat + 0.0035;
+
+    const osmUrl =
+      `https://www.openstreetmap.org/export/embed.html` +
+      `?bbox=${west},${south},${east},${north}` +
+      `&layer=mapnik` +
+      `&marker=${lat},${lng}`;
+
+    const googleUrl =
+      `https://www.google.com/maps?q=${lat},${lng}`;
+
+    body = `
+      <div style="
+        position: relative;
+        width: 270px;
+        height: 265px;
+        margin: 0;
+        padding: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(0,0,0,0.1);
+        background: #f0f2f5;">
+
+        <iframe
+          width="270"
+          height="265"
+          frameborder="0"
+          scrolling="no"
+          marginheight="0"
+          marginwidth="0"
+          style="
+            display: block;
+            width: 100%;
+            height: 265px;
+            border: 0;"
+          src="${osmUrl}">
+        </iframe>
+
+      </div>
+      
+      <div style="
+        position: relative;
+        text-align: right;">
+
+        <!-- Time -->
+        ${meta}
+
+        <!-- Clickable link: opens Google Maps -->
+        <a href="${googleUrl}"
+           target="_blank"
+           rel="noopener noreferrer"
+           title="Apri in Google Maps"
+           style="
+             display: inline-block;
+             padding-left: 10px;
+             color: #4CAF50;">
+          Apri in Gmaps
+        </a>
+
+      </div>
+    `;
+  }
+}
+  // -- END OpenStreetMap --  
+
+	else {
     const jumbo = emojiOnly(m.t) ? " jumbo" : "";
     let t = esc(m.t);
     t = state.query ? markify(t, state.query) : linkify(t);
     body = `<div class="btext${jumbo}">${t}${meta}</div>`;
   }
   return `<div class="row${mine ? " out" : ""}${cont ? " cont" : ""}" data-i="${m.i}">
-    <div class="bubble${extraCls}">
-      ${showName ? `<div class="sender" style="color:${color}">${esc(sender)}</div>` : ""}
-      ${body}</div></div>`;
+  <div class="bubble${extraCls}">
+    ${showName ? `<div class="sender" style="color:${color}">${esc(sender)}</div>` : ""}
+    ${body}</div></div>`;
+
 }
 function mediaHTML(m, meta){
   const cap = m.t ? `<div class="btext caption">${state.query ? markify(esc(m.t), state.query) : linkify(esc(m.t))}</div>` : "";

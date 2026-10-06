@@ -4,7 +4,7 @@
 // "caption ‎image omitted" form used when media wasn't included in an export.
 
 const LRM_RE = /[\u200e\u200f]/g;
-const ATTACH_RE = /<attached:\s*([^>]+?)\s*>/;
+const ATTACH_RE = /<[^>]+?: (.*?\.[a-z0-9]{3,4})>/i;
 const OMIT_MARK_RE = /\u200e(image|video|audio|sticker|GIF|document|Contact card) omitted/i;
 const OMITTED_RE = /^(?:image|video|audio|sticker|GIF|document|Contact card) omitted$/i;
 const CALL_RE = /^(?:Missed voice call|Missed video call|Voice call|Video call|Call declined|No answer|Silenced call)\b/i;
@@ -87,7 +87,16 @@ export function buildChatIndex(text, chatName){
       const att = ATTACH_RE.exec(r);
       const omit = att ? null : OMIT_MARK_RE.exec(r);
       const clean = trimMarks(r.replace(ATTACH_RE, ""));
-      if (att){
+      const geoRegex =
+        /https?:\/\/(?:maps\.google\.com\/\?q=|www\.google\.com\/maps\?q=)(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/i;
+      const geoMatch = r.match(geoRegex);
+
+      if (geoMatch) {
+        item.k = 5;
+        item.t = "Posizione condivisa";
+        item.lat = geoMatch[1];
+        item.lng = geoMatch[2];
+      } else if (att){
         item.k = 1; item.a = att[1];
         if (clean) item.t = clean;
       } else if (omit || OMITTED_RE.test(clean)){
@@ -99,6 +108,8 @@ export function buildChatIndex(text, chatName){
         }
       } else if (DELETED_RE.test(clean)){ item.k = 4; item.t = clean; }
       else if (CALL_RE.test(clean)){ item.k = 3; item.t = clean; }
+      // The message is classified item.k = 2 if it start with Unicode character LRM \u200e or if the sender is not known.
+      // It will probably safer remove "hadLrm || " and keep the second condition only.
       else if (hadLrm || !senders[snd[i]]){ item.k = 2; item.t = clean; }
       else { item.k = 0; item.t = clean; }
       return item;
