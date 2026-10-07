@@ -19,8 +19,13 @@ leave your device, and there is no server, no build step and no dependency.
 
 ## Features
 
-- WhatsApp-style bubbles, day separators, group sender colours, "you" on the
-  right (auto-detected, changeable, remembered)
+- **(New) PWA Support:** Save the app to your Home screen to launch it directly
+  from the icon. It works completely offline with no internet connection required.
+- **(New) Map Integration:** Displays interactive OpenStreetMap bubbles
+  directly in the chat instead of raw text coordinates.
+- Authentic WhatsApp-style interface with speech bubbles, day separators,
+  group chat sender colours, and your own messages on the right (auto-detected,
+  customisable, and remembered).
 - Photos, videos, GIFs, stickers, documents and contact cards, decompressed
   straight out of the zip on demand; full-screen lightbox
 - Voice notes get a waveform player with tap-to-seek. An export carries no
@@ -58,6 +63,11 @@ and can't be recovered from it. Android's export format is not parsed yet.
 docs/               the deployable site (GitHub Pages serves this folder)
   index.html        markup
   og-2x.png         the social preview the page links
+  icon-180.png      Chrome PWA Android icon
+  icon-192.png      Apple PWA iOS icon
+  icon-512.png      Splash Screen PWA icon
+  manifest.json     Core PWA setup file
+  sw.js             Core PWA setup file
   css/app.css       styles
   js/util.js        shared helpers & constants
   js/chatparse.js   chat-text parser + message classifier
