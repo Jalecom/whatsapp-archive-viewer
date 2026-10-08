@@ -62,12 +62,12 @@ and can't be recovered from it. Android's export format is not parsed yet.
 ```
 docs/               the deployable site (GitHub Pages serves this folder)
   index.html        markup
-  og-2x.png         the social preview the page links
-  icon-180.png      Chrome PWA Android icon
-  icon-192.png      Apple PWA iOS icon
-  icon-512.png      Splash Screen PWA icon
-  manifest.json     Core PWA setup file
-  sw.js             Core PWA setup file
+  og-2x.png         Social preview page links       \
+  icon-180.png      Chrome PWA Android icon          |
+  icon-192.png      Apple PWA iOS icon               |  social icons
+  icon-512.png      Splash Screen PWA icon           |  & PWA setup
+  manifest.json     Core PWA setup file              |
+  sw.js             Core PWA setup file             /
   css/app.css       styles
   js/util.js        shared helpers & constants
   js/chatparse.js   chat-text parser + message classifier
